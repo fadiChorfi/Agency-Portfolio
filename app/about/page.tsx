@@ -6,12 +6,12 @@ export default function AboutPage() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+      <section className="w-full py-12 md:py-2 lg:py-2 xl:py-2 bg-muted">
         <div className="container px-4 md:px-6">
           <div className="grid gap-6 lg:grid-cols-2 lg:gap-12">
             <div className="flex flex-col justify-center space-y-4">
               <div className="space-y-2">
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl">About MarketPro Solutions</h1>
+                <h1 className="text-3xl  font-bold tracking-normal sm:text-5xl">About MarketPro <br/> Solutions</h1>
                 <p className="max-w-[600px] text-muted-foreground md:text-xl">
                   We're a team of marketing experts, trainers, and business strategists dedicated to helping businesses
                   grow and succeed.
@@ -21,8 +21,8 @@ export default function AboutPage() {
             <div className="flex items-center justify-center">
               <Image
                 src="/placeholder.svg?height=400&width=600"
-                width={600}
-                height={400}
+                width={550}
+                height={550}
                 alt="Team at work"
                 className="rounded-xl object-cover"
               />
@@ -142,13 +142,13 @@ export default function AboutPage() {
 
 const teamMembers = [
   {
-    name: "Alex Morgan",
+    name: "Mahdi Farhi",
     position: "CEO & Marketing Strategist",
     bio: "With 15+ years in marketing, Alex has helped numerous businesses transform their marketing strategies.",
     avatar: "/placeholder.svg?height=120&width=120",
   },
   {
-    name: "Jamie Wilson",
+    name: "Takoa Farhi",
     position: "Head of Training",
     bio: "Jamie specializes in creating effective training programs that enhance skills and boost productivity.",
     avatar: "/placeholder.svg?height=120&width=120",
