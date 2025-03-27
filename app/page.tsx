@@ -1,12 +1,12 @@
-import Link from "next/link"
-import Image from "next/image"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { ArrowRight, BarChart, BookOpen, Briefcase } from "lucide-react"
+import Link from "next/link";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { ArrowRight, BarChart, BookOpen, Briefcase } from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col ">
       <section className="w-full py-12 md:py-2 lg:py-2 xl:py-2">
         <div className="container px-4 md:px-6">
           <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 xl:grid-cols-2">
@@ -16,8 +16,8 @@ export default function Home() {
                   Marketing, Training, and Business Solutions
                 </h1>
                 <p className="max-w-[600px] text-muted-foreground md:text-xl">
-                  We help businesses grow through strategic marketing, professional training, and innovative business
-                  solutions.
+                  We help businesses grow through strategic marketing,
+                  professional training, and innovative business solutions.
                 </p>
               </div>
               <div className="flex flex-col gap-2 min-[400px]:flex-row">
@@ -31,9 +31,9 @@ export default function Home() {
             </div>
             <div className="flex items-center justify-center">
               <Image
-                src="/placeholder.svg?height=550&width=550"
-                width={550}
-                height={550}
+                src="/logo.png"
+                width={500}
+                height={500}
                 alt="Hero Image"
                 className="rounded-xl object-cover"
                 priority
@@ -48,9 +48,12 @@ export default function Home() {
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Our Services</h2>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+                Our Services
+              </h2>
               <p className="max-w-[900px] text-muted-foreground md:text-xl">
-                Comprehensive solutions to help your business thrive in today's competitive market.
+                Comprehensive solutions to help your business thrive in today's
+                competitive market.
               </p>
             </div>
           </div>
@@ -61,11 +64,15 @@ export default function Home() {
                 <div className="space-y-2 text-center">
                   <h3 className="text-xl font-bold">Marketing & Advertising</h3>
                   <p className="text-muted-foreground">
-                    Strategic marketing campaigns that drive growth and increase brand visibility.
+                    Strategic marketing campaigns that drive growth and increase
+                    brand visibility.
                   </p>
                 </div>
                 <Button variant="link" asChild className="mt-auto">
-                  <Link href="/services#marketing" className="flex items-center gap-1">
+                  <Link
+                    href="/services#marketing"
+                    className="flex items-center gap-1"
+                  >
                     Learn more <ArrowRight className="h-4 w-4" />
                   </Link>
                 </Button>
@@ -77,11 +84,15 @@ export default function Home() {
                 <div className="space-y-2 text-center">
                   <h3 className="text-xl font-bold">Training & Workshops</h3>
                   <p className="text-muted-foreground">
-                    Professional training programs designed to enhance skills and productivity.
+                    Professional training programs designed to enhance skills
+                    and productivity.
                   </p>
                 </div>
                 <Button variant="link" asChild className="mt-auto">
-                  <Link href="/services#training" className="flex items-center gap-1">
+                  <Link
+                    href="/services#training"
+                    className="flex items-center gap-1"
+                  >
                     Learn more <ArrowRight className="h-4 w-4" />
                   </Link>
                 </Button>
@@ -93,11 +104,15 @@ export default function Home() {
                 <div className="space-y-2 text-center">
                   <h3 className="text-xl font-bold">Business Solutions</h3>
                   <p className="text-muted-foreground">
-                    Tailored business strategies and solutions to overcome challenges and achieve goals.
+                    Tailored business strategies and solutions to overcome
+                    challenges and achieve goals.
                   </p>
                 </div>
                 <Button variant="link" asChild className="mt-auto">
-                  <Link href="/services#solutions" className="flex items-center gap-1">
+                  <Link
+                    href="/services#solutions"
+                    className="flex items-center gap-1"
+                  >
                     Learn more <ArrowRight className="h-4 w-4" />
                   </Link>
                 </Button>
@@ -112,9 +127,12 @@ export default function Home() {
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Client Testimonials</h2>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+                Client Testimonials
+              </h2>
               <p className="max-w-[900px] text-muted-foreground md:text-xl">
-                Don't just take our word for it. Here's what our clients have to say.
+                Don't just take our word for it. Here's what our clients have to
+                say.
               </p>
             </div>
           </div>
@@ -136,7 +154,9 @@ export default function Home() {
                       </div>
                       <div>
                         <p className="font-semibold">{testimonial.name}</p>
-                        <p className="text-sm text-muted-foreground">{testimonial.title}</p>
+                        <p className="text-sm text-muted-foreground">
+                          {testimonial.title}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -152,9 +172,12 @@ export default function Home() {
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Ready to Grow Your Business?</h2>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+                Ready to Grow Your Business?
+              </h2>
               <p className="max-w-[900px] md:text-xl">
-                Let's work together to achieve your business goals. Contact us today for a free consultation.
+                Let's work together to achieve your business goals. Contact us
+                today for a free consultation.
               </p>
             </div>
             <div className="flex flex-col gap-2 min-[400px]:flex-row">
@@ -166,7 +189,7 @@ export default function Home() {
         </div>
       </section>
     </div>
-  )
+  );
 }
 
 const testimonials = [
@@ -191,5 +214,4 @@ const testimonials = [
     title: "Operations Manager, Bright Future Ltd",
     avatar: "/placeholder.svg?height=48&width=48",
   },
-]
-
+];

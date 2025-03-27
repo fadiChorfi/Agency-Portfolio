@@ -1,4 +1,5 @@
 import Image from "next/image"
+
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -144,48 +145,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* Customized Plans */}
-      <section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
-        <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center justify-center space-y-4 text-center">
-            <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Customized Plans for Your Business</h2>
-              <p className="max-w-[900px] text-muted-foreground md:text-xl">
-                We understand that every business is unique. That's why we offer customized plans tailored to your
-                specific needs and goals.
-              </p>
-            </div>
-          </div>
-          <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 py-12 md:grid-cols-3">
-            {plans.map((plan, index) => (
-              <Card key={index} className={index === 1 ? "border-primary" : ""}>
-                <CardContent className="p-6">
-                  <div className="flex flex-col space-y-4">
-                    <div className="space-y-2">
-                      <h3 className="text-2xl font-bold">{plan.name}</h3>
-                      <p className="text-muted-foreground">{plan.description}</p>
-                    </div>
-                    <div className="space-y-2">
-                      <h4 className="font-medium">Features:</h4>
-                      <ul className="space-y-2">
-                        {plan.features.map((feature, featureIndex) => (
-                          <li key={featureIndex} className="flex items-start">
-                            <CheckCircle className="mr-2 h-5 w-5 text-primary" />
-                            <span>{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    <Button asChild className={index === 1 ? "" : "mt-auto"}>
-                      <Link href="/contact">Get Started</Link>
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
+     m
 
       {/* CTA Section */}
       <section className="w-full py-12 md:py-24 lg:py-32 bg-primary text-primary-foreground">

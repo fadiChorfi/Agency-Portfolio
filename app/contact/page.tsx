@@ -1,14 +1,25 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Textarea } from "@/components/ui/textarea"
-import { Mail, MapPin, Phone } from "lucide-react"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { Mail, MapPin, Phone } from "lucide-react";
+import dynamic from "next/dynamic";
+
+const GoogleMap = dynamic(() => import("@/components/GoogleMap"), {
+  ssr: false,
+});
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -19,28 +30,28 @@ export default function ContactPage() {
     interest: "",
     budget: "",
     message: "",
-  })
+  });
 
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSelectChange = (name, value) => {
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    setIsSubmitting(true)
+    e.preventDefault();
+    setIsSubmitting(true);
 
     // Simulate form submission
     setTimeout(() => {
-      setIsSubmitting(false)
-      setIsSubmitted(true)
+      setIsSubmitting(false);
+      setIsSubmitted(true);
       setFormData({
         name: "",
         email: "",
@@ -49,9 +60,9 @@ export default function ContactPage() {
         interest: "",
         budget: "",
         message: "",
-      })
-    }, 1500)
-  }
+      });
+    }, 1500);
+  };
 
   return (
     <div className="flex flex-col">
@@ -60,10 +71,12 @@ export default function ContactPage() {
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
-              <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl">Get in Touch</h1>
+              <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+                Get in Touch
+              </h1>
               <p className="max-w-[900px] text-muted-foreground md:text-xl">
-                Have a question or ready to start a project? Contact us today and let's discuss how we can help your
-                business grow.
+                Have a question or ready to start a project? Contact us today
+                and let's discuss how we can help your business grow.
               </p>
             </div>
           </div>
@@ -76,9 +89,12 @@ export default function ContactPage() {
           <div className="grid gap-6 lg:grid-cols-2 lg:gap-12">
             <div className="space-y-8">
               <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter">Contact Information</h2>
+                <h2 className="text-3xl font-bold tracking-tighter">
+                  Contact Information
+                </h2>
                 <p className="text-muted-foreground">
-                  Reach out to us through any of these channels or fill out the form to get started.
+                  Reach out to us through any of these channels or fill out the
+                  form to get started.
                 </p>
               </div>
               <div className="grid gap-4">
@@ -89,9 +105,9 @@ export default function ContactPage() {
                       <div className="space-y-1">
                         <h3 className="font-medium">Our Office</h3>
                         <p className="text-sm text-muted-foreground">
-                          123 Business Avenue, Suite 500
+                          Tebessa
                           <br />
-                          New York, NY 10001
+                          Boulevard Emir Abdelkader,
                         </p>
                       </div>
                     </div>
@@ -103,8 +119,12 @@ export default function ContactPage() {
                       <Mail className="h-6 w-6 text-primary" />
                       <div className="space-y-1">
                         <h3 className="font-medium">Email Us</h3>
-                        <p className="text-sm text-muted-foreground">info@marketprosolutions.com</p>
-                        <p className="text-sm text-muted-foreground">support@marketprosolutions.com</p>
+                        <p className="text-sm text-muted-foreground">
+                          info@marketprosolutions.com
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          support@marketprosolutions.com
+                        </p>
                       </div>
                     </div>
                   </CardContent>
@@ -115,8 +135,14 @@ export default function ContactPage() {
                       <Phone className="h-6 w-6 text-primary" />
                       <div className="space-y-1">
                         <h3 className="font-medium">Call Us</h3>
-                        <p className="text-sm text-muted-foreground">+1 (555) 123-4567</p>
-                        <p className="text-sm text-muted-foreground">Mon-Fri: 9:00 AM - 6:00 PM EST</p>
+                        <p className="text-sm text-muted-foreground">
+                          <span>0550318695</span> <br />
+                          <span>0795787873</span> <br />
+                          <span>0795282716</span> <br />
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          sat-Thur: 8:30 AM - 4:30 PM
+                        </p>
                       </div>
                     </div>
                   </CardContent>
@@ -125,20 +151,21 @@ export default function ContactPage() {
               <div className="space-y-2">
                 <h3 className="text-xl font-bold">Business Hours</h3>
                 <div className="grid grid-cols-2 gap-2 text-sm">
-                  <div>Monday - Friday</div>
-                  <div>9:00 AM - 6:00 PM EST</div>
-                  <div>Saturday</div>
-                  <div>10:00 AM - 2:00 PM EST</div>
-                  <div>Sunday</div>
+                  <div>saturday - Thursday</div>
+                  <div>8:30 AM - 4:30 PM</div>
+                  <div>Friday</div>
                   <div>Closed</div>
                 </div>
               </div>
             </div>
             <div className="space-y-8">
               <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter">Send Us a Message</h2>
+                <h2 className="text-3xl font-bold tracking-tighter">
+                  Send Us a Message
+                </h2>
                 <p className="text-muted-foreground">
-                  Fill out the form below and we'll get back to you as soon as possible.
+                  Fill out the form below and we'll get back to you as soon as
+                  possible.
                 </p>
               </div>
               {isSubmitted ? (
@@ -146,8 +173,13 @@ export default function ContactPage() {
                   <CardContent className="p-6">
                     <div className="space-y-2 text-center">
                       <h3 className="text-xl font-bold">Thank You!</h3>
-                      <p>Your message has been received. We'll get back to you shortly.</p>
-                      <Button onClick={() => setIsSubmitted(false)}>Send Another Message</Button>
+                      <p>
+                        Your message has been received. We'll get back to you
+                        shortly.
+                      </p>
+                      <Button onClick={() => setIsSubmitted(false)}>
+                        Send Another Message
+                      </Button>
                     </div>
                   </CardContent>
                 </Card>
@@ -161,7 +193,7 @@ export default function ContactPage() {
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
-                        placeholder="John Doe"
+                        placeholder="Your name"
                         required
                       />
                     </div>
@@ -173,7 +205,7 @@ export default function ContactPage() {
                         type="email"
                         value={formData.email}
                         onChange={handleChange}
-                        placeholder="john@example.com"
+                        placeholder="example@example.com"
                         required
                       />
                     </div>
@@ -187,7 +219,7 @@ export default function ContactPage() {
                         type="tel"
                         value={formData.phone}
                         onChange={handleChange}
-                        placeholder="+1 (555) 123-4567"
+                        placeholder="+213XXXXXXXXX"
                       />
                     </div>
                     <div className="space-y-2">
@@ -205,7 +237,9 @@ export default function ContactPage() {
                     <Label>I'm interested in:</Label>
                     <RadioGroup
                       value={formData.interest}
-                      onValueChange={(value) => handleSelectChange("interest", value)}
+                      onValueChange={(value) =>
+                        handleSelectChange("interest", value)
+                      }
                       className="grid gap-2 sm:grid-cols-3"
                     >
                       <div className="flex items-center space-x-2">
@@ -230,16 +264,29 @@ export default function ContactPage() {
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="budget">Budget Range</Label>
-                    <Select value={formData.budget} onValueChange={(value) => handleSelectChange("budget", value)}>
+                    <Select
+                      value={formData.budget}
+                      onValueChange={(value) =>
+                        handleSelectChange("budget", value)
+                      }
+                    >
                       <SelectTrigger id="budget">
                         <SelectValue placeholder="Select a budget range" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="less-5k">Less than $5,000</SelectItem>
+                        <SelectItem value="less-5k">
+                          Less than $5,000
+                        </SelectItem>
                         <SelectItem value="5k-10k">$5,000 - $10,000</SelectItem>
-                        <SelectItem value="10k-25k">$10,000 - $25,000</SelectItem>
-                        <SelectItem value="25k-50k">$25,000 - $50,000</SelectItem>
-                        <SelectItem value="more-50k">More than $50,000</SelectItem>
+                        <SelectItem value="10k-25k">
+                          $10,000 - $25,000
+                        </SelectItem>
+                        <SelectItem value="25k-50k">
+                          $25,000 - $50,000
+                        </SelectItem>
+                        <SelectItem value="more-50k">
+                          More than $50,000
+                        </SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -255,7 +302,11 @@ export default function ContactPage() {
                       required
                     />
                   </div>
-                  <Button type="submit" className="w-full" disabled={isSubmitting}>
+                  <Button
+                    type="submit"
+                    className="w-full"
+                    disabled={isSubmitting}
+                  >
                     {isSubmitting ? "Sending..." : "Send Message"}
                   </Button>
                 </form>
@@ -270,18 +321,19 @@ export default function ContactPage() {
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center mb-8">
             <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Visit Our Office</h2>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+                Visit Our Office
+              </h2>
               <p className="max-w-[900px] text-muted-foreground md:text-xl">
-                We're conveniently located in the heart of the city. Stop by for a coffee and a chat!
+                We're conveniently located in the heart of the city. Stop by for
+                a coffee and a chat!
               </p>
             </div>
           </div>
           <div className="overflow-hidden rounded-xl border bg-background shadow">
             <div className="h-[400px] w-full bg-muted">
               {/* Replace with actual map component or iframe */}
-              <div className="flex h-full items-center justify-center">
-                <p className="text-muted-foreground">Map placeholder - Google Maps or similar would be embedded here</p>
-              </div>
+              <GoogleMap />
             </div>
           </div>
         </div>
@@ -292,9 +344,12 @@ export default function ContactPage() {
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Ready to Get Started?</h2>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+                Ready to Get Started?
+              </h2>
               <p className="max-w-[900px] text-muted-foreground md:text-xl">
-                Book a free 30-minute consultation to discuss your business needs and how we can help.
+                Book a free 30-minute consultation to discuss your business
+                needs and how we can help.
               </p>
             </div>
             <Button size="lg" className="mt-4">
@@ -304,6 +359,5 @@ export default function ContactPage() {
         </div>
       </section>
     </div>
-  )
+  );
 }
-
