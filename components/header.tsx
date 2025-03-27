@@ -6,6 +6,7 @@ import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { ModeToggle } from "./mode-toggle"
+import SideNav from "./SideNav"
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -17,9 +18,15 @@ const navigation = [
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [toggle, setIsToggle] = useState<boolean>(false);
+
+  const toogleMenu = () =>{
+    setIsToggle((prev)=> !prev)
+  }
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <SideNav  isOpen={toggle} setIsOpen={setIsToggle}  />
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
         <div className="flex lg:flex-1">
           <Link href="/" className="-m-1.5 p-1.5">
@@ -30,7 +37,7 @@ export default function Header() {
           <button
             type="button"
             className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5"
-            onClick={() => setMobileMenuOpen(true)}
+           onClick={()=>toogleMenu()}
           >
             <span className="sr-only">Open main menu</span>
             <Menu className="h-6 w-6" aria-hidden="true" />
