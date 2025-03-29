@@ -16,6 +16,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, MapPin, Phone } from "lucide-react";
 import dynamic from "next/dynamic";
+import { countryCodes } from "@/lib/countryCodes";
 
 const GoogleMap = dynamic(() => import("@/components/GoogleMap"), {
   ssr: false,
@@ -25,13 +26,13 @@ export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    countryCode: "+213",
     phone: "",
     company: "",
     interest: "",
     budget: "",
     message: "",
   });
-
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -43,18 +44,44 @@ export default function ContactPage() {
   const handleSelectChange = (name, value) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
+  const formattedData = {
+    ...formData,
+    phone: `${formData.countryCode}${formData.phone}`, 
+  };
+
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+  
+  const validatePhone = (phone: string) => {
+    const phoneRegex = /^\+?[0-9\s-]+$/;
+    return phoneRegex.test(phone);
+  };
+  
+
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!validateEmail(formData.email)) {
+      alert("Invalid email format");
+      return;
+    }
+  
+    if (!validatePhone(formData.phone)) {
+      alert("Phone number should contain only digits");
+      return;
+    }
     setIsSubmitting(true);
-
-    // Simulate form submission
+    console.log(formData)
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSubmitted(true);
       setFormData({
         name: "",
         email: "",
+        countryCode: "",
         phone: "",
         company: "",
         interest: "",
@@ -66,25 +93,7 @@ export default function ContactPage() {
 
   return (
     <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
-        <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center justify-center space-y-4 text-center">
-            <div className="space-y-2">
-              <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                Get in Touch
-              </h1>
-              <p className="max-w-[900px] text-muted-foreground md:text-xl">
-                Have a question or ready to start a project? Contact us today
-                and let's discuss how we can help your business grow.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Form & Info */}
-      <section className="w-full py-12 md:py-24 lg:py-32">
+      <section className="w-full py-12 md:py-24 lg:py-4">
         <div className="container px-4 md:px-6">
           <div className="grid gap-6 lg:grid-cols-2 lg:gap-12">
             <div className="space-y-8">
@@ -213,14 +222,32 @@ export default function ContactPage() {
                   <div className="grid gap-4 sm:grid-cols-2">
                     <div className="space-y-2">
                       <Label htmlFor="phone">Phone Number</Label>
-                      <Input
-                        id="phone"
-                        name="phone"
-                        type="tel"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        placeholder="+213XXXXXXXXX"
-                      />
+                      <div className="flex gap-2">
+                        <Select
+                          onValueChange={(value)=>handleSelectChange("countryCode", value)}
+                          defaultValue={formData.countryCode}
+                          name="countryCode"
+                        >
+                          <SelectTrigger className="w-[85px] border-r">
+                            <SelectValue placeholder="Code" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {countryCodes.map(({ code, country }) => (
+                              <SelectItem key={code} value={code}>
+                                {code}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <Input
+                          id="phone"
+                          name="phone"
+                          type="tel"
+                          value={formData.phone}
+                          onChange={handleChange}
+                          placeholder="Your Phone Number"
+                        />
+                      </div>
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="company">Company</Label>
