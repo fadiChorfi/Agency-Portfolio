@@ -64,7 +64,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Training & Workshops */}
-      <section id="training" className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+      <section id="development" className="w-full py-12 md:py-24 lg:py-32 bg-muted">
         <div className="container px-4 md:px-6">
           <div className="grid gap-6 lg:grid-cols-2 lg:gap-12">
             <div className="flex items-center justify-center order-last lg:order-first">
@@ -105,7 +105,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Business Solutions */}
-      <section id="solutions" className="w-full py-12 md:py-24 lg:py-32">
+      <section id="design" className="w-full py-12 md:py-24 lg:py-32">
         <div className="container px-4 md:px-6">
           <div className="grid gap-6 lg:grid-cols-2 lg:gap-12">
             <div className="flex flex-col justify-center space-y-4">

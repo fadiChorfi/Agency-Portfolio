@@ -23,7 +23,8 @@ export default function RootLayout({
         {/* <ThemeProvider attribute="class" defaultTheme="light">
         </ThemeProvider> */}
           <div className="flex min-h-screen flex-col">
-            <Header />
+            <Header /> 
+            {/* <NavbarDemo/> */}
             <main className="flex-1">{children}</main>
             <Footer />
           </div>
@@ -35,3 +36,4 @@ export default function RootLayout({
 
 
 import './globals.css'
+import { NavbarDemo } from "@/components/Nav"
