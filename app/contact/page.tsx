@@ -1,6 +1,6 @@
 "use client";
 
-import {  FormEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -46,50 +46,48 @@ export default function ContactPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSelectChange = (name: string, value:string) => {
+  const handleSelectChange = (name: string, value: string) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const formattedData = {
     ...formData,
-    phone: `${formData.countryCode}${formData.phone}`, 
+    phone: `${formData.countryCode}${formData.phone}`,
   };
 
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
-  
+
   const validatePhone = (phone: string) => {
     const phoneRegex = /^\+?[0-9\s-]+$/;
     return phoneRegex.test(phone);
   };
 
-  
-
-  const handleSubmit = async(e:FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (loading) return; 
-    
+    if (loading) return;
+
     if (!validateEmail(formData.email)) {
       alert("Invalid email format");
       return;
     }
-    
+
     if (!validatePhone(formData.phone)) {
       alert("Phone number should contain only digits");
       return;
     }
     setLoading(true);
     setIsSubmitting(true);
-    console.log(formData)
-    
+
     try {
       const res = await fetch("/api/submit", {
         method: "POST",
@@ -99,7 +97,7 @@ export default function ContactPage() {
         },
         body: JSON.stringify(formData),
       });
-  
+
       const content = await res.json();
       setIsSubmitting(false);
       setIsSubmitted(true);
@@ -112,14 +110,12 @@ export default function ContactPage() {
         budget: "",
         message: "",
       });
-
-      
-
     } catch (error) {
       alert("Failed to send. Please try again.");
-
     } finally {
-      setIsSubmitted(false)
+      setIsSubmitted(false);
+      setLoading(false);
+      alert("data sumbitted succefully");
     }
   };
 
@@ -256,7 +252,9 @@ export default function ContactPage() {
                       <Label htmlFor="phone">Phone Number</Label>
                       <div className="flex gap-2">
                         <Select
-                          onValueChange={(value)=>handleSelectChange("countryCode", value)}
+                          onValueChange={(value) =>
+                            handleSelectChange("countryCode", value)
+                          }
                           defaultValue={formData.countryCode}
                           name="countryCode"
                         >
@@ -292,7 +290,7 @@ export default function ContactPage() {
                       />
                     </div>
                   </div>
-                  
+
                   <div className="space-y-2">
                     <Label htmlFor="budget">Budget Range</Label>
                     <Select
@@ -338,7 +336,7 @@ export default function ContactPage() {
                     className="w-full"
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? "Sending..." : "Send Message"}
+                    {loading ? "Sending..." : "Send Message"}
                   </Button>
                 </form>
               )}
