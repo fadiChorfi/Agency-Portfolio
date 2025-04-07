@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import {  FormEvent, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -22,28 +22,40 @@ const GoogleMap = dynamic(() => import("@/components/GoogleMap"), {
   ssr: false,
 });
 
+interface FormData {
+  name: string;
+  email: string;
+  countryCode: string;
+  phone: string;
+  company: string;
+  budget: string;
+  message: string;
+}
+
 export default function ContactPage() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
     countryCode: "+213",
     phone: "",
     company: "",
-    interest: "",
     budget: "",
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleChange = (e) => {
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSelectChange = (name, value) => {
+  const handleSelectChange = (name: string, value:string) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
+
   const formattedData = {
     ...formData,
     phone: `${formData.countryCode}${formData.phone}`, 
@@ -58,24 +70,37 @@ export default function ContactPage() {
     const phoneRegex = /^\+?[0-9\s-]+$/;
     return phoneRegex.test(phone);
   };
-  
 
   
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e:FormEvent) => {
     e.preventDefault();
+    if (loading) return; 
+    
     if (!validateEmail(formData.email)) {
       alert("Invalid email format");
       return;
     }
-  
+    
     if (!validatePhone(formData.phone)) {
       alert("Phone number should contain only digits");
       return;
     }
+    setLoading(true);
     setIsSubmitting(true);
     console.log(formData)
-    setTimeout(() => {
+    
+    try {
+      const res = await fetch("/api/submit", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      const content = await res.json();
       setIsSubmitting(false);
       setIsSubmitted(true);
       setFormData({
@@ -84,11 +109,18 @@ export default function ContactPage() {
         countryCode: "",
         phone: "",
         company: "",
-        interest: "",
         budget: "",
         message: "",
       });
-    }, 1500);
+
+      
+
+    } catch (error) {
+      alert("Failed to send. Please try again.");
+
+    } finally {
+      setIsSubmitted(false)
+    }
   };
 
   return (
@@ -260,35 +292,7 @@ export default function ContactPage() {
                       />
                     </div>
                   </div>
-                  <div className="space-y-2">
-                    <Label>I'm interested in:</Label>
-                    <RadioGroup
-                      value={formData.interest}
-                      onValueChange={(value) =>
-                        handleSelectChange("interest", value)
-                      }
-                      className="grid gap-2 sm:grid-cols-3"
-                    >
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="marketing" id="marketing" />
-                        <Label htmlFor="marketing" className="font-normal">
-                          Marketing Services
-                        </Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="training" id="training" />
-                        <Label htmlFor="training" className="font-normal">
-                          Training Programs
-                        </Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="business" id="business" />
-                        <Label htmlFor="business" className="font-normal">
-                          Business Solutions
-                        </Label>
-                      </div>
-                    </RadioGroup>
-                  </div>
+                  
                   <div className="space-y-2">
                     <Label htmlFor="budget">Budget Range</Label>
                     <Select

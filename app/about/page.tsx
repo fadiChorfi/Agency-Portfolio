@@ -1,6 +1,10 @@
 import Image from "next/image";
-import { Card, CardContent } from "@/components/ui/card";
 import { Award, CheckCircle, Target } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { Card, CardContent } from "@/components/ui/card";
+
+
 
 export default function AboutPage() {
   return (
@@ -73,46 +77,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Team */}
-      {/* <section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
-        <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center justify-center space-y-4 text-center">
-            <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                Meet Our Team
-              </h2>
-              <p className="max-w-[900px] text-muted-foreground md:text-xl">
-                Our diverse team of experts brings together years of experience
-                in marketing, training, and business development.
-              </p>
-            </div>
-          </div>
-          <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 py-12 md:grid-cols-2 lg:grid-cols-3">
-            {teamMembers.map((member, index) => (
-              <Card key={index} className="bg-background">
-                <CardContent className="p-6">
-                  <div className="flex flex-col items-center space-y-4">
-                    <Image
-                      src={member.avatar || "/placeholder.svg"}
-                      alt={member.name}
-                      width={120}
-                      height={120}
-                      className="rounded-full"
-                    />
-                    <div className="space-y-2 text-center">
-                      <h3 className="text-xl font-bold">{member.name}</h3>
-                      <p className="text-sm text-primary">{member.position}</p>
-                      <p className="text-sm text-muted-foreground">
-                        {member.bio}
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section> */}
 
       {/* Experience & Expertise */}
       <section className="w-full py-12 md:py-24 lg:py-32 bg-muted ">
