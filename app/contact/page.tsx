@@ -116,6 +116,7 @@ export default function ContactPage() {
       setIsSubmitted(false);
       setLoading(false);
       alert("data sumbitted succefully");
+      console.log(formData)
     }
   };
 
