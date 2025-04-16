@@ -1,11 +1,94 @@
-import Image from "next/image";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ArrowRight } from "lucide-react";
+"use client"
+import Image from "next/image"
+import type React from "react"
+
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { beforeAfterResults, caseStudies } from "@/data/data"
+import { useState, useRef, useEffect } from "react"
+import { Dialog, DialogContent } from "@/components/ui/dialog"
+import { ZoomIn, X, Maximize2, Minimize2 } from "lucide-react"
+import { useToast } from "@/hooks/use-toast"
 
 export default function PortfolioPage() {
+  const [selectedImage, setSelectedImage] = useState<{
+    src: string
+    title: string
+    description: string
+  } | null>(null)
+  const [isZoomed, setIsZoomed] = useState(false)
+  const imageRef = useRef<HTMLImageElement>(null)
+  const touchStartRef = useRef({ x: 0, y: 0 })
+  const touchMoveRef = useRef({ x: 0, y: 0 })
+  const { toast } = useToast()
+
+  function openImageModal(imageSrc: string, title: string, description: string) {
+    setSelectedImage({
+      src: imageSrc,
+      title,
+      description,
+    })
+    setIsZoomed(false)
+  }
+
+  const closeImageModal = () => {
+    setSelectedImage(null)
+    setIsZoomed(false)
+  }
+
+  const toggleZoom = () => {
+    setIsZoomed(!isZoomed)
+  }
+
+  useEffect(() => {
+    if (selectedImage) {
+      toast({
+        title: "Image Viewer",
+        description: "Pinch to zoom, swipe down to close",
+        duration: 3000,
+      })
+    }
+  }, [selectedImage, toast])
+
+  // Handle touch events for the modal
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (e.touches.length === 1) {
+      touchStartRef.current = {
+        x: e.touches[0].clientX,
+        y: e.touches[0].clientY,
+      }
+      touchMoveRef.current = {
+        x: e.touches[0].clientX,
+        y: e.touches[0].clientY,
+      }
+    }
+  }
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (e.touches.length === 1) {
+      touchMoveRef.current = {
+        x: e.touches[0].clientX,
+        y: e.touches[0].clientY,
+      }
+    }
+  }
+
+  const handleTouchEnd = () => {
+    const deltaY = touchMoveRef.current.y - touchStartRef.current.y
+
+    // If swiped down more than 100px, close the modal
+    if (deltaY > 100) {
+      closeImageModal()
+    }
+  }
+
+  // Double tap to zoom
+  const handleDoubleTap = () => {
+    toggleZoom()
+  }
+
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
@@ -13,12 +96,9 @@ export default function PortfolioPage() {
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
-              <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                Our Portfolio
-              </h1>
+              <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl">Our Portfolio</h1>
               <p className="max-w-[900px] text-muted-foreground md:text-xl">
-                Explore our success stories and see how we've helped businesses
-                achieve their goals.
+                Explore our success stories and see how we've helped businesses achieve their goals.
               </p>
             </div>
           </div>
@@ -29,18 +109,26 @@ export default function PortfolioPage() {
       <section className="w-full py-12 md:py-24 lg:py-32">
         <div className="container px-4 md:px-6">
           <Tabs defaultValue="all" className="w-full">
-            <div className="flex justify-center mb-8">
-              <TabsList>
+            <div className="flex justify-center mb-8 overflow-x-auto pb-2">
+              <TabsList className="flex flex-wrap justify-center">
                 <TabsTrigger value="all">All Projects</TabsTrigger>
                 <TabsTrigger value="marketing">Marketing</TabsTrigger>
                 <TabsTrigger value="training">Training</TabsTrigger>
                 <TabsTrigger value="business">Business Solutions</TabsTrigger>
+                <TabsTrigger value="post-design">Post Design</TabsTrigger>
+                <TabsTrigger value="logos">Logos</TabsTrigger>
+                <TabsTrigger value="package-design">Package Design</TabsTrigger>
+                <TabsTrigger value="banner-design">Banner Design</TabsTrigger>
               </TabsList>
             </div>
             <TabsContent value="all" className="mt-0">
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {caseStudies.map((study, index) => (
-                  <CaseStudyCard key={index} caseStudy={study} />
+                  <CaseStudyCard
+                    key={index}
+                    caseStudy={study}
+                    onImageClick={(src) => openImageModal(src, study.title, study.description)}
+                  />
                 ))}
               </div>
             </TabsContent>
@@ -49,7 +137,11 @@ export default function PortfolioPage() {
                 {caseStudies
                   .filter((study) => study.category === "marketing")
                   .map((study, index) => (
-                    <CaseStudyCard key={index} caseStudy={study} />
+                    <CaseStudyCard
+                      key={index}
+                      caseStudy={study}
+                      onImageClick={(src) => openImageModal(src, study.title, study.description)}
+                    />
                   ))}
               </div>
             </TabsContent>
@@ -58,7 +150,11 @@ export default function PortfolioPage() {
                 {caseStudies
                   .filter((study) => study.category === "training")
                   .map((study, index) => (
-                    <CaseStudyCard key={index} caseStudy={study} />
+                    <CaseStudyCard
+                      key={index}
+                      caseStudy={study}
+                      onImageClick={(src) => openImageModal(src, study.title, study.description)}
+                    />
                   ))}
               </div>
             </TabsContent>
@@ -67,7 +163,63 @@ export default function PortfolioPage() {
                 {caseStudies
                   .filter((study) => study.category === "business")
                   .map((study, index) => (
-                    <CaseStudyCard key={index} caseStudy={study} />
+                    <CaseStudyCard
+                      key={index}
+                      caseStudy={study}
+                      onImageClick={(src) => openImageModal(src, study.title, study.description)}
+                    />
+                  ))}
+              </div>
+            </TabsContent>
+            <TabsContent value="post-design" className="mt-0">
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {caseStudies
+                  .filter((study) => study.category === "post-design")
+                  .map((study, index) => (
+                    <CaseStudyCard
+                      key={index}
+                      caseStudy={study}
+                      onImageClick={(src) => openImageModal(src, study.title, study.description)}
+                    />
+                  ))}
+              </div>
+            </TabsContent>
+            <TabsContent value="logos" className="mt-0">
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {caseStudies
+                  .filter((study) => study.category === "logos")
+                  .map((study, index) => (
+                    <CaseStudyCard
+                      key={index}
+                      caseStudy={study}
+                      onImageClick={(src) => openImageModal(src, study.title, study.description)}
+                    />
+                  ))}
+              </div>
+            </TabsContent>
+            <TabsContent value="package-design" className="mt-0">
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {caseStudies
+                  .filter((study) => study.category === "package-design")
+                  .map((study, index) => (
+                    <CaseStudyCard
+                      key={index}
+                      caseStudy={study}
+                      onImageClick={(src) => openImageModal(src, study.title, study.description)}
+                    />
+                  ))}
+              </div>
+            </TabsContent>
+            <TabsContent value="banner-design" className="mt-0">
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {caseStudies
+                  .filter((study) => study.category === "banner-design")
+                  .map((study, index) => (
+                    <CaseStudyCard
+                      key={index}
+                      caseStudy={study}
+                      onImageClick={(src) => openImageModal(src, study.title, study.description)}
+                    />
                   ))}
               </div>
             </TabsContent>
@@ -80,12 +232,9 @@ export default function PortfolioPage() {
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
             <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                Before & After Results
-              </h2>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Before & After Results</h2>
               <p className="max-w-[900px] text-muted-foreground md:text-xl">
-                See the tangible impact of our services through these before and
-                after comparisons.
+                See the tangible impact of our services through these before and after comparisons.
               </p>
             </div>
           </div>
@@ -98,45 +247,63 @@ export default function PortfolioPage() {
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
                       <span className="font-medium">Before</span>
-                      <span className="text-muted-foreground">
-                        {result.beforeMetric}
-                      </span>
+                      <span className="text-muted-foreground">{result.beforeMetric}</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="font-medium">After</span>
-                      <span className="text-primary font-bold">
-                        {result.afterMetric}
-                      </span>
+                      <span className="text-primary font-bold">{result.afterMetric}</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="font-medium">Improvement</span>
-                      <span className="text-green-600 font-bold">
-                        {result.improvement}
-                      </span>
+                      <span className="text-green-600 font-bold">{result.improvement}</span>
                     </div>
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <div className="overflow-hidden rounded-lg border">
+                    <div
+                      className="overflow-hidden rounded-lg border group relative cursor-pointer"
+                      onClick={() =>
+                        openImageModal(
+                          result.beforeImage || "/placeholder.svg",
+                          `${result.title} - Before`,
+                          result.description,
+                        )
+                      }
+                    >
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
+                        <ZoomIn className="text-white w-8 h-8" />
+                      </div>
                       <Image
                         src={result.beforeImage || "/placeholder.svg"}
                         alt={`Before - ${result.title}`}
                         width={300}
                         height={200}
-                        className="aspect-video object-cover"
+                        className="aspect-video object-cover transition-transform group-hover:scale-105"
                       />
                     </div>
                     <p className="text-center text-sm font-medium">Before</p>
                   </div>
                   <div className="space-y-2">
-                    <div className="overflow-hidden rounded-lg border border-primary">
+                    <div
+                      className="overflow-hidden rounded-lg border border-primary group relative cursor-pointer"
+                      onClick={() =>
+                        openImageModal(
+                          result.afterImage || "/placeholder.svg",
+                          `${result.title} - After`,
+                          result.description,
+                        )
+                      }
+                    >
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
+                        <ZoomIn className="text-white w-8 h-8" />
+                      </div>
                       <Image
                         src={result.afterImage || "/placeholder.svg"}
                         alt={`After - ${result.title}`}
                         width={300}
                         height={200}
-                        className="aspect-video object-cover"
+                        className="aspect-video object-cover transition-transform group-hover:scale-105"
                       />
                     </div>
                     <p className="text-center text-sm font-medium">After</p>
@@ -153,12 +320,9 @@ export default function PortfolioPage() {
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                Ready to See Results?
-              </h2>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Ready to See Results?</h2>
               <p className="max-w-[900px] text-muted-foreground md:text-xl">
-                Let's work together to achieve similar results for your
-                business.
+                Let's work together to achieve similar results for your business.
               </p>
             </div>
             <div className="flex flex-col gap-2 min-[400px]:flex-row">
@@ -172,163 +336,127 @@ export default function PortfolioPage() {
           </div>
         </div>
       </section>
+
+      {/* Image Modal */}
+      <Dialog open={!!selectedImage} onOpenChange={(open) => !open && closeImageModal()}>
+        <DialogContent
+          className="max-w-4xl p-0 overflow-hidden bg-background border"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          <div className="relative">
+            <div className="absolute top-2 right-2 z-10 flex gap-2">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="bg-black/50 hover:bg-black/70 text-white rounded-full h-12 w-12"
+                onClick={toggleZoom}
+              >
+                {isZoomed ? <Minimize2 className="h-6 w-6" /> : <Maximize2 className="h-6 w-6" />}
+                <span className="sr-only">{isZoomed ? "Zoom out" : "Zoom in"}</span>
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="bg-black/50 hover:bg-black/70 text-white rounded-full h-12 w-12"
+                onClick={closeImageModal}
+              >
+                <X className="h-6 w-6" />
+                <span className="sr-only">Close</span>
+              </Button>
+            </div>
+            {selectedImage && (
+              <div className="flex flex-col">
+                <div
+                  className={`bg-white p-1 rounded-lg overflow-auto ${isZoomed ? "max-h-[80vh]" : ""}`}
+                  onDoubleClick={handleDoubleTap}
+                >
+                  <Image
+                    ref={imageRef}
+                    src={selectedImage.src || "/placeholder.svg"}
+                    alt={selectedImage.title}
+                    width={1200}
+                    height={800}
+                    className={`${
+                      isZoomed
+                        ? "max-w-none w-auto h-auto max-h-none scale-150 cursor-zoom-out"
+                        : "max-h-[70vh] w-auto object-contain cursor-zoom-in"
+                    } transition-transform duration-200`}
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-2">{selectedImage.title}</h3>
+                  <p className="text-muted-foreground">{selectedImage.description}</p>
+
+                  {/* Mobile-friendly instructions */}
+                  <div className="mt-4 text-sm text-muted-foreground md:hidden">
+                    <p className="flex items-center gap-2">
+                      <span>• Double tap to zoom in/out</span>
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <span>• Swipe down to close</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
-  );
+  )
 }
 
-function CaseStudyCard(caseStudy : any) {
+function CaseStudyCard({
+  caseStudy,
+  onImageClick,
+}: {
+  caseStudy: any
+  onImageClick: (src: string) => void
+}) {
   return (
     <Card className="overflow-hidden">
-      <div className="relative">
+      <div
+        className="relative cursor-pointer group"
+        onClick={() => onImageClick(caseStudy.image || "/placeholder.svg")}
+      >
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100 z-10">
+          <ZoomIn className="text-white w-8 h-8" />
+        </div>
         <Image
           src={caseStudy.image || "/placeholder.svg"}
-          alt={caseStudy.title}
+          alt={caseStudy.title || "Case study image"}
           width={400}
           height={225}
-          className="aspect-video object-cover w-full"
+          className="aspect-video object-cover w-full transition-transform group-hover:scale-105"
         />
         <div className="absolute top-2 right-2 bg-primary text-primary-foreground px-2 py-1 rounded-md text-xs font-medium">
           {caseStudy.category === "marketing"
             ? "Marketing"
             : caseStudy.category === "training"
-            ? "Training"
-            : "Business Solutions"}
+              ? "Training"
+              : caseStudy.category === "business"
+                ? "Business Solutions"
+                : caseStudy.category === "post-design"
+                  ? "Post Design"
+                  : caseStudy.category === "logos"
+                    ? "Logos"
+                    : caseStudy.category === "package-design"
+                      ? "Package Design"
+                      : caseStudy.category === "banner-design"
+                        ? "Banner Design"
+                        : caseStudy.category}
         </div>
       </div>
       <CardContent className="p-6">
-        <div className="space-y-4">
-          <div className="space-y-2">
-            <h3 className="text-xl font-bold">{caseStudy.title}</h3>
-            <p className="text-muted-foreground">{caseStudy.description}</p>
-          </div>
-          <div className="space-y-2">
-            <div className="flex items-center justify-between text-sm">
-              <span>Client:</span>
-              <span className="font-medium">{caseStudy.client}</span>
-            </div>
-            <div className="flex items-center justify-between text-sm">
-              <span>Industry:</span>
-              <span className="font-medium">{caseStudy.industry}</span>
-            </div>
-            <div className="flex items-center justify-between text-sm">
-              <span>Results:</span>
-              <span className="font-medium text-green-600">
-                {caseStudy.results}
-              </span>
-            </div>
-          </div>
-          <Button variant="link" className="p-0 h-auto" asChild>
-            <Link
-              href={`/portfolio/${caseStudy.id}`}
-              className="flex items-center"
-            >
-              Read case study <ArrowRight className="ml-1 h-4 w-4" />
-            </Link>
-          </Button>
+        <h3 className="text-xl font-bold mb-2">{caseStudy.title}</h3>
+        <p className="text-muted-foreground mb-4">{caseStudy.description}</p>
+        <div className="flex justify-between items-center">
+          <span className="text-sm text-muted-foreground">{caseStudy.date}</span>
+          
         </div>
       </CardContent>
     </Card>
-  );
+  )
 }
-
-const caseStudies = [
-  {
-    id: "tech-startup-growth",
-    title: "Tech Startup Growth Strategy",
-    description:
-      "Helping a tech startup increase their market presence and user acquisition.",
-    client: "InnovateTech",
-    industry: "Technology",
-    results: "+200% Growth",
-    category: "marketing",
-    image: "/placeholder.svg?height=225&width=400",
-  },
-  {
-    id: "retail-chain-training",
-    title: "Retail Staff Training Program",
-    description:
-      "Developing a comprehensive training program for a national retail chain.",
-    client: "RetailPlus",
-    industry: "Retail",
-    results: "+45% Efficiency",
-    category: "training",
-    image: "/placeholder.svg?height=225&width=400",
-  },
-  {
-    id: "healthcare-business-transformation",
-    title: "Healthcare Business Transformation",
-    description:
-      "Guiding a healthcare provider through digital transformation.",
-    client: "MediCare Solutions",
-    industry: "Healthcare",
-    results: "30% Cost Reduction",
-    category: "business",
-    image: "/placeholder.svg?height=225&width=400",
-  },
-  {
-    id: "ecommerce-marketing-campaign",
-    title: "E-commerce Marketing Campaign",
-    description:
-      "Creating a multi-channel marketing campaign for an e-commerce platform.",
-    client: "ShopEasy",
-    industry: "E-commerce",
-    results: "+150% Sales",
-    category: "marketing",
-    image: "/placeholder.svg?height=225&width=400",
-  },
-  {
-    id: "corporate-leadership-training",
-    title: "Corporate Leadership Training",
-    description:
-      "Developing leadership skills for a corporate management team.",
-    client: "Global Enterprises",
-    industry: "Finance",
-    results: "90% Satisfaction",
-    category: "training",
-    image: "/placeholder.svg?height=225&width=400",
-  },
-  {
-    id: "restaurant-chain-expansion",
-    title: "Restaurant Chain Expansion",
-    description:
-      "Strategic planning for a restaurant chain's market expansion.",
-    client: "Flavor Fusion",
-    industry: "Food & Beverage",
-    results: "5 New Locations",
-    category: "business",
-    image: "/placeholder.svg?height=225&width=400",
-  },
-];
-
-const beforeAfterResults = [
-  {
-    title: "Social Media Marketing Campaign",
-    description:
-      "A comprehensive social media strategy that transformed brand engagement and follower growth.",
-    beforeMetric: "2,500 followers",
-    afterMetric: "15,000+ followers",
-    improvement: "+500%",
-    beforeImage: "/placeholder.svg?height=200&width=300",
-    afterImage: "/placeholder.svg?height=200&width=300",
-  },
-  {
-    title: "Website Conversion Optimization",
-    description:
-      "Redesigning the client's website and optimizing the user journey to increase conversions.",
-    beforeMetric: "1.2% conversion rate",
-    afterMetric: "4.8% conversion rate",
-    improvement: "+300%",
-    beforeImage: "/placeholder.svg?height=200&width=300",
-    afterImage: "/placeholder.svg?height=200&width=300",
-  },
-  {
-    title: "Employee Training Program",
-    description:
-      "Implementing a structured training program to enhance employee skills and productivity.",
-    beforeMetric: "65% productivity rate",
-    afterMetric: "92% productivity rate",
-    improvement: "+42%",
-    beforeImage: "/placeholder.svg?height=200&width=300",
-    afterImage: "/placeholder.svg?height=200&width=300",
-  },
-];

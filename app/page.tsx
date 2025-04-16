@@ -17,42 +17,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { caseStudies } from "@/data/data";
 
-const caseStudies = [
-  {
-    id: "tech-startup-growth",
-    title: "Tech Startup Growth Strategy",
-    description:
-      "Helping a tech startup increase their market presence and user acquisition.",
-    client: "InnovateTech",
-    industry: "Technology",
-    results: "+200% Growth",
-    category: "marketing",
-    image: "/placeholder.svg?height=225&width=400",
-  },
-  {
-    id: "retail-chain-training",
-    title: "Retail Staff Training Program",
-    description:
-      "Developing a comprehensive training program for a national retail chain.",
-    client: "RetailPlus",
-    industry: "Retail",
-    results: "+45% Efficiency",
-    category: "training",
-    image: "/placeholder.svg?height=225&width=400",
-  },
-  {
-    id: "healthcare-business-transformation",
-    title: "Healthcare Business Transformation",
-    description:
-      "Guiding a healthcare provider through digital transformation.",
-    client: "MediCare Solutions",
-    industry: "Healthcare",
-    results: "30% Cost Reduction",
-    category: "business",
-    image: "/placeholder.svg?height=225&width=400",
-  },
-];
+
 
 const testimonials = [
   {
