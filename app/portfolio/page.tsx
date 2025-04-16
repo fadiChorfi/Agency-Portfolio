@@ -342,26 +342,6 @@ export default function PortfolioPage() {
           onTouchEnd={handleTouchEnd}
         >
           <div className="relative">
-            <div className="absolute top-2 right-2 z-10 flex gap-2">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="bg-black/50 hover:bg-black/70 text-white rounded-full h-12 w-12"
-                onClick={toggleZoom}
-              >
-                {isZoomed ? <Minimize2 className="h-6 w-6" /> : <Maximize2 className="h-6 w-6" />}
-                <span className="sr-only">{isZoomed ? "Zoom out" : "Zoom in"}</span>
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="bg-black/50 hover:bg-black/70 text-white rounded-full h-12 w-12"
-                onClick={closeImageModal}
-              >
-                <X className="h-6 w-6" />
-                <span className="sr-only">Close</span>
-              </Button>
-            </div>
             {selectedImage && (
               <div className="flex flex-col">
                 <div

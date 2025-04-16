@@ -11,6 +11,17 @@ export const caseStudies = [
       image: "/photo_1.jpg",
     },
     {
+      id: "restaurant-chain-expansion",
+      title: "Restaurant Chain Expansion",
+      description:
+        "We helped highlight the 100% natural quality of YA SKIN CARE products with clean, organic-inspired packaging that communicates purity and premium skincare benefits.",
+      client: "Flavor Fusion",
+      industry: "Food & Beverage",
+      results: "5 New Locations",
+      category: "package-design",
+      image: "photo_8.jpg",
+  },
+    {
       id: "retail-chain-training",
       title: "Retail Staff Training Program",
       description:
@@ -42,7 +53,8 @@ export const caseStudies = [
         results: "5 New Locations",
         category: "post-design",
         image: "photo_6.jpg",
-      },{
+    },
+    {
         id: "restaurant-chain-expansion",
         title: "Restaurant Chain Expansion",
         description:
@@ -52,17 +64,9 @@ export const caseStudies = [
         results: "5 New Locations",
         category: "logos",
         image: "photo_7.jpg",
-      },{
-        id: "restaurant-chain-expansion",
-        title: "Restaurant Chain Expansion",
-        description:
-          "We helped highlight the 100% natural quality of YA SKIN CARE products with clean, organic-inspired packaging that communicates purity and premium skincare benefits.",
-        client: "Flavor Fusion",
-        industry: "Food & Beverage",
-        results: "5 New Locations",
-        category: "package-design",
-        image: "photo_8.jpg",
-      },{
+    },
+    
+    {
         id: "restaurant-chain-expansion",
         title: "Restaurant Chain Expansion",
         description:
@@ -72,7 +76,7 @@ export const caseStudies = [
         results: "5 New Locations",
         category: "banner-design",
         image: "photo_9.jpg",
-      },
+    },
     {
       id: "restaurant-chain-expansion",
       title: "Restaurant Chain Expansion",
@@ -94,7 +98,7 @@ export const caseStudies = [
         results: "5 New Locations",
         category: "logos",
         image: "photo_11.jpg",
-      },
+    },
       
   ];
   
