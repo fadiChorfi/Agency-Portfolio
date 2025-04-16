@@ -1,16 +1,14 @@
 "use client"
 import Image from "next/image"
-import type React from "react"
-
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { beforeAfterResults, caseStudies } from "@/data/data"
-import { useState, useRef, useEffect } from "react"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
 import { ZoomIn, X, Maximize2, Minimize2 } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
+import { useEffect, useRef, useState } from "react"
 
 export default function PortfolioPage() {
   const [selectedImage, setSelectedImage] = useState<{
@@ -42,8 +40,9 @@ export default function PortfolioPage() {
     setIsZoomed(!isZoomed)
   }
 
+  // Show a toast when the modal opens on mobile to inform users about touch gestures
   useEffect(() => {
-    if (selectedImage) {
+    if (selectedImage ) {
       toast({
         title: "Image Viewer",
         description: "Pinch to zoom, swipe down to close",
@@ -112,9 +111,6 @@ export default function PortfolioPage() {
             <div className="flex justify-center mb-8 overflow-x-auto pb-2">
               <TabsList className="flex flex-wrap justify-center">
                 <TabsTrigger value="all">All Projects</TabsTrigger>
-                <TabsTrigger value="marketing">Marketing</TabsTrigger>
-                <TabsTrigger value="training">Training</TabsTrigger>
-                <TabsTrigger value="business">Business Solutions</TabsTrigger>
                 <TabsTrigger value="post-design">Post Design</TabsTrigger>
                 <TabsTrigger value="logos">Logos</TabsTrigger>
                 <TabsTrigger value="package-design">Package Design</TabsTrigger>
@@ -125,7 +121,7 @@ export default function PortfolioPage() {
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {caseStudies.map((study, index) => (
                   <CaseStudyCard
-                    key={index}
+                    key={index}         
                     caseStudy={study}
                     onImageClick={(src) => openImageModal(src, study.title, study.description)}
                   />
@@ -228,7 +224,7 @@ export default function PortfolioPage() {
       </section>
 
       {/* Before & After Results */}
-      <section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+      {/* <section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
             <div className="space-y-2">
@@ -313,7 +309,7 @@ export default function PortfolioPage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* CTA Section */}
       <section className="w-full py-12 md:py-24 lg:py-32">
@@ -333,39 +329,19 @@ export default function PortfolioPage() {
                 <Link href="/services">Explore Services</Link>
               </Button>
             </div>
-          </div>
+          </div>  
         </div>
       </section>
 
       {/* Image Modal */}
       <Dialog open={!!selectedImage} onOpenChange={(open) => !open && closeImageModal()}>
         <DialogContent
-          className="max-w-4xl p-0 overflow-hidden bg-background border"
+          className="max-w-fit p-0 overflow-hidden bg-background border"
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
           <div className="relative">
-            <div className="absolute top-2 right-2 z-10 flex gap-2">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="bg-black/50 hover:bg-black/70 text-white rounded-full h-12 w-12"
-                onClick={toggleZoom}
-              >
-                {isZoomed ? <Minimize2 className="h-6 w-6" /> : <Maximize2 className="h-6 w-6" />}
-                <span className="sr-only">{isZoomed ? "Zoom out" : "Zoom in"}</span>
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="bg-black/50 hover:bg-black/70 text-white rounded-full h-12 w-12"
-                onClick={closeImageModal}
-              >
-                <X className="h-6 w-6" />
-                <span className="sr-only">Close</span>
-              </Button>
-            </div>
             {selectedImage && (
               <div className="flex flex-col">
                 <div
@@ -382,23 +358,10 @@ export default function PortfolioPage() {
                       isZoomed
                         ? "max-w-none w-auto h-auto max-h-none scale-150 cursor-zoom-out"
                         : "max-h-[70vh] w-auto object-contain cursor-zoom-in"
-                    } transition-transform duration-200`}
+                    } transition-transform duration-200 m-auto`}
                   />
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2">{selectedImage.title}</h3>
-                  <p className="text-muted-foreground">{selectedImage.description}</p>
 
-                  {/* Mobile-friendly instructions */}
-                  <div className="mt-4 text-sm text-muted-foreground md:hidden">
-                    <p className="flex items-center gap-2">
-                      <span>• Double tap to zoom in/out</span>
-                    </p>
-                    <p className="flex items-center gap-2">
-                      <span>• Swipe down to close</span>
-                    </p>
-                  </div>
-                </div>
               </div>
             )}
           </div>
@@ -424,37 +387,21 @@ function CaseStudyCard({
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100 z-10">
           <ZoomIn className="text-white w-8 h-8" />
         </div>
-        <Image
+        <Image  
           src={caseStudy.image || "/placeholder.svg"}
           alt={caseStudy.title || "Case study image"}
           width={400}
           height={225}
           className="aspect-video object-cover w-full transition-transform group-hover:scale-105"
         />
-        <div className="absolute top-2 right-2 bg-primary text-primary-foreground px-2 py-1 rounded-md text-xs font-medium">
-          {caseStudy.category === "marketing"
-            ? "Marketing"
-            : caseStudy.category === "training"
-              ? "Training"
-              : caseStudy.category === "business"
-                ? "Business Solutions"
-                : caseStudy.category === "post-design"
-                  ? "Post Design"
-                  : caseStudy.category === "logos"
-                    ? "Logos"
-                    : caseStudy.category === "package-design"
-                      ? "Package Design"
-                      : caseStudy.category === "banner-design"
-                        ? "Banner Design"
-                        : caseStudy.category}
-        </div>
+
       </div>
       <CardContent className="p-6">
         <h3 className="text-xl font-bold mb-2">{caseStudy.title}</h3>
         <p className="text-muted-foreground mb-4">{caseStudy.description}</p>
         <div className="flex justify-between items-center">
           <span className="text-sm text-muted-foreground">{caseStudy.date}</span>
-          
+
         </div>
       </CardContent>
     </Card>
