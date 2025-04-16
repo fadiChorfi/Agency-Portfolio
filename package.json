@@ -46,7 +46,7 @@
     "googleapis": "^148.0.0",
     "input-otp": "1.4.1",
     "lucide-react": "^0.487.0",
-    "motion": "^12.6.2",
+    "motion": "^12.7.3",
     "next": "15.1.0",
     "next-themes": "latest",
     "react": "^19",
