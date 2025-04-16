@@ -9,6 +9,9 @@ import {
   CheckCircle,
   Zap,
   Clock,
+  Film,
+  Search,
+  BookOpen,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,9 +22,7 @@ import {
 } from "@/components/ui/accordion";
 import { caseStudies } from "@/data/data";
 
-
-
-const testimonials = [
+/* const testimonials = [
   {
     quote:
       "Working with this team transformed our marketing strategy. Our online presence has grown by 200% in just six months.",
@@ -43,29 +44,50 @@ const testimonials = [
     title: "Operations Manager, Bright Future Ltd",
     avatar: "/testimonials/emma.jpg",
   },
-];
+]; */
 
 const services = [
   {
     icon: <BarChart className="h-12 w-12 text-primary" />,
     title: "Marketing & Advertising",
     description:
-      "Strategic marketing campaigns that drive growth and increase brand visibility.",
-    link: "/services/marketing",
+      "Data-driven campaigns and targeted strategies to amplify your brand’s reach and ROI.",
+    link: "/services/#marketing",
   },
   {
     icon: <Palette className="h-12 w-12 text-primary" />,
-    title: "Branding & Design",
+    title: "Branding & Graphic Design",
     description:
-      "Compelling brand identities and beautiful designs that captivate your audience.",
-    link: "/services/design",
+      "Visually stunning identities and designs that tell your story and resonate with audiences.",
+    link: "/services/#design",
   },
   {
     icon: <Code2 className="h-12 w-12 text-primary" />,
     title: "Development",
     description:
-      "We craft apps that don't just run — they connect, captivate, and convert.",
-    link: "/services/development",
+      "Custom apps and digital solutions engineered for performance, engagement, and scalability.",
+    link: "/services/#development",
+  },
+  {
+    icon: <Film className="h-12 w-12 text-primary" />,
+    title: "Video Editing & Production",
+    description:
+      "Captivating video content that boosts engagement, from ads to social media storytelling.",
+    link: "/services/#video",
+  },
+  {
+    icon: <Search className="h-12 w-12 text-primary" />,
+    title: "Market Research & Analysis",
+    description:
+      "Actionable insights and competitive intelligence to guide your business decisions.",
+    link: "/services/#research",
+  },
+  {
+    icon: <BookOpen className="h-12 w-12 text-primary" />,
+    title: "Courses & Workshops",
+    description:
+      "Hands-on training in marketing, design, and tech—empowering teams with cutting-edge skills.",
+    link: "/services/#courses",
   },
 ];
 
@@ -96,7 +118,7 @@ const featureCards = [
 const stats = [
   { id: 1, value: "500+", label: "Satisfied Clients" },
   { id: 2, value: "98%", label: "Success Rate" },
-  { id: 3, value: "10+", label: "Years of Experience" },
+  { id: 3, value: "2+", label: "Years of Experience" },
   { id: 4, value: "24/7", label: "Customer Support" },
 ];
 
@@ -310,21 +332,20 @@ export default function Home() {
               </p>
             </div>
           </div>
-          <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 py-8 md:grid-cols-2 lg:grid-cols-3">
-            {caseStudies.map((study, index) => (
+          <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 py-8 md:grid-cols-2 lg:grid-cols-3 rounded-lg overflow-hidden">
+            {caseStudies.slice(0, 3).map((study, index) => (
               <Card
-                className="overflow-hidden hover:shadow-lg transition-all duration-300 border-transparent hover:border-primary/20 group"
+                className="  hover:shadow-lg overflow-hidden transition-all duration-300 border-transparent hover:border-primary/20 group"
                 key={index}
               >
                 <div className="relative overflow-hidden">
-                <Image
+                  <Image
                     src={study.image || "/placeholder.svg"}
                     alt={study.title}
                     width={400}
-                    height={225}
-                    className="aspect-video object-cover w-full"
+                    height={500}
+                    className="aspect-auto object-cover w-full"
                   />
-
                 </div>
                 <CardContent className="p-6">
                   <div className="space-y-4">
@@ -336,31 +357,7 @@ export default function Home() {
                       <p className="text-muted-foreground">
                         {study.description}
                       </p>
-                    </div>
-                    <div className="space-y-2 border-t border-border pt-4">
-                      <div className="flex items-center justify-between text-sm">
-                        <span className="text-muted-foreground">Client:</span>
-                        <span className="font-medium">{study.client}</span>
-                      </div>
-                      <div className="flex items-center justify-between text-sm">
-                        <span className="text-muted-foreground">Industry:</span>
-                        <span className="font-medium">{study.industry}</span>
-                      </div>
-                      <div className="flex items-center justify-between text-sm">
-                        <span className="text-muted-foreground">Results:</span>
-                        <span className="font-medium text-green-600">
-                          {study.results}
-                        </span>
-                      </div>
-                    </div>
-                    <Button variant="link" className="p-0 h-auto mt-2" asChild>
-                      <Link
-                        href={`/portfolio/${study.id}`}
-                        className="flex items-center group-hover:gap-2 transition-all duration-300"
-                      >
-                        Read case study <ArrowRight className="ml-1 h-4 w-4" />
-                      </Link>
-                    </Button>
+                    </div> 
                   </div>
                 </CardContent>
               </Card>
@@ -375,7 +372,7 @@ export default function Home() {
       </section>
 
       {/* Testimonials Section - Added missing rendering of testimonials data */}
-      <section className="w-full py-16 md:py-24 lg:py-32">
+     {/*  <section className="w-full py-16 md:py-24 lg:py-32">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
             <div className="inline-block rounded-lg bg-primary/10 px-3 py-1 text-sm text-primary mb-4">
@@ -432,7 +429,7 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* CTA Section - Improved with gradient */}
       <section className="w-full py-16 md:py-24 lg:py-32 bg-gradient-to-r from-primary to-slate-300 text-primary-foreground">
@@ -546,14 +543,7 @@ export default function Home() {
             </Accordion>
           </div>
 
-          <div className="text-center mt-12">
-            <p className="text-muted-foreground mb-6">
-              Don't see your question here? We're happy to help.
-            </p>
-            <Button asChild>
-              <Link href="/contact">Ask Us Anything</Link>
-            </Button>
-          </div>
+          
         </div>
       </section>
     </div>
