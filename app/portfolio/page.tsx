@@ -40,7 +40,6 @@ export default function PortfolioPage() {
     setIsZoomed(!isZoomed)
   }
 
-  // Show a toast when the modal opens on mobile to inform users about touch gestures
   useEffect(() => {
     if (selectedImage ) {
       toast({
