@@ -118,7 +118,7 @@ const featureCards = [
 const stats = [
   { id: 1, value: "500+", label: "Satisfied Clients" },
   { id: 2, value: "98%", label: "Success Rate" },
-  { id: 3, value: "2+", label: "Years of Experience" },
+  { id: 3, value: "5+", label: "Years of Experience" },
   { id: 4, value: "24/7", label: "Customer Support" },
 ];
 
