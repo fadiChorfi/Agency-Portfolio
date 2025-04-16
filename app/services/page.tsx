@@ -207,7 +207,7 @@ const plans = [
     name: "Starter Plan",
     description: "Perfect for small businesses looking to establish their presence.",
     features: [
-      "Basic marketing strategy",
+      "Basic marketigy",
       "Social media setup",
       "One training workshop",
       "Monthly performance report",
