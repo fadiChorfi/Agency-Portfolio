@@ -1,9 +1,9 @@
 export const caseStudies = [
     {
       id: "bless",
-      title: "bless",
+      title: "Bless",
       description:
-        "Helping a tech startup increase their market presence and user acquisition.",
+        "We helped launch a modest fashion app with a vibrant poster that highlights its availability on both Google Play and the App Store, ensuring maximum reach for users.",
       client: "Bless",
       industry: "Technology",
       results: "+200% Growth",
@@ -14,7 +14,7 @@ export const caseStudies = [
       id: "retail-chain-training",
       title: "Retail Staff Training Program",
       description:
-        "Developing a comprehensive training program for a national retail chain.",
+        "We helped Rayene English Steps build a clean, professional brand image through a sleek and simple poster design.",
       client: "RetailPlus",
       industry: "Retail",
       results: "+45% Efficiency",
@@ -25,7 +25,7 @@ export const caseStudies = [
       id: "healthcare-business-transformation",
       title: "Healthcare Business Transformation",
       description:
-        "Guiding a healthcare provider through digital transformation.",
+        "We helped Inas Olive Oil promote their natural product with a bold, modern poster that highlights quality and drives action.",
       client: "MediCare Solutions",
       industry: "Healthcare",
       results: "30% Cost Reduction",
@@ -33,32 +33,10 @@ export const caseStudies = [
       image: "/photo_3.jpg",
     },
     {
-      id: "ecommerce-marketing-campaign",
-      title: "E-commerce Marketing Campaign",
-      description:
-        "Creating a multi-channel marketing campaign for an e-commerce platform.",
-      client: "ShopEasy",
-      industry: "E-commerce",
-      results: "+150% Sales",
-      category: "post-design",
-      image: "/photo_4.jpg",
-    },
-    {
-      id: "corporate-leadership-training",
-      title: "Corporate Leadership Training",
-      description:
-        "Developing leadership skills for a corporate management team.",
-      client: "Global Enterprises",
-      industry: "Finance",
-      results: "90% Satisfaction",
-      category: "post-design",
-      image: "/photo_5.jpg",
-    },
-    {
         id: "restaurant-chain-expansion",
         title: "Restaurant Chain Expansion",
         description:
-          "Strategic planning for a restaurant chain's market expansion.",
+          "We helped showcase the purity and quality of natural olive oil with a clean, informative poster that highlights its 100% natural composition and key scientific properties for health-conscious consumers. ",
         client: "Flavor Fusion",
         industry: "Food & Beverage",
         results: "5 New Locations",
@@ -68,7 +46,7 @@ export const caseStudies = [
         id: "restaurant-chain-expansion",
         title: "Restaurant Chain Expansion",
         description:
-          "Strategic planning for a restaurant chain's market expansion.",
+          "We helped promote MINERVE's tanning foam with a sleek, minimalist poster that highlights the product's key features and elegant branding.",
         client: "Flavor Fusion",
         industry: "Food & Beverage",
         results: "5 New Locations",
@@ -78,7 +56,7 @@ export const caseStudies = [
         id: "restaurant-chain-expansion",
         title: "Restaurant Chain Expansion",
         description:
-          "Strategic planning for a restaurant chain's market expansion.",
+          "We helped highlight the 100% natural quality of YA SKIN CARE products with clean, organic-inspired packaging that communicates purity and premium skincare benefits.",
         client: "Flavor Fusion",
         industry: "Food & Beverage",
         results: "5 New Locations",
@@ -88,7 +66,7 @@ export const caseStudies = [
         id: "restaurant-chain-expansion",
         title: "Restaurant Chain Expansion",
         description:
-          "Strategic planning for a restaurant chain's market expansion.",
+          "We helped LEN. BUSINESS COMPANY establish a professional identity with a bold, modern banner that clearly presents their dual expertise in business and marketing services.",
         client: "Flavor Fusion",
         industry: "Food & Beverage",
         results: "5 New Locations",
@@ -99,7 +77,7 @@ export const caseStudies = [
       id: "restaurant-chain-expansion",
       title: "Restaurant Chain Expansion",
       description:
-        "Strategic planning for a restaurant chain's market expansion.",
+        "We helped BRUME promote their luxurious body and hair mist with an elegant, culturally-inspired post design that highlights the Damascene rose fragrance and creates desire through poetic Arabic descriptions",
       client: "Flavor Fusion",
       industry: "Food & Beverage",
       results: "5 New Locations",
@@ -110,7 +88,7 @@ export const caseStudies = [
         id: "restaurant-chain-expansion",
         title: "Restaurant Chain Expansion",
         description:
-          "Strategic planning for a restaurant chain's market expansion.",
+          "We helped craft a sleek, modern logo for EUPHORIA COLLECTION that embodies luxury and sophistication through minimalist typography and elegant negative space design.",
         client: "Flavor Fusion",
         industry: "Food & Beverage",
         results: "5 New Locations",

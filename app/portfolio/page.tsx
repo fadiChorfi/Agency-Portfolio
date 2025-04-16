@@ -336,7 +336,7 @@ export default function PortfolioPage() {
       {/* Image Modal */}
       <Dialog open={!!selectedImage} onOpenChange={(open) => !open && closeImageModal()}>
         <DialogContent
-          className="max-w-4xl p-0 overflow-hidden bg-background border"
+          className="max-w-fit p-0 overflow-hidden bg-background border"
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
@@ -378,23 +378,10 @@ export default function PortfolioPage() {
                       isZoomed
                         ? "max-w-none w-auto h-auto max-h-none scale-150 cursor-zoom-out"
                         : "max-h-[70vh] w-auto object-contain cursor-zoom-in"
-                    } transition-transform duration-200`}
+                    } transition-transform duration-200 m-auto`}
                   />
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2">{selectedImage.title}</h3>
-                  <p className="text-muted-foreground">{selectedImage.description}</p>
-
-                  {/* Mobile-friendly instructions */}
-                  <div className="mt-4 text-sm text-muted-foreground md:hidden">
-                    <p className="flex items-center gap-2">
-                      <span>• Double tap to zoom in/out</span>
-                    </p>
-                    <p className="flex items-center gap-2">
-                      <span>• Swipe down to close</span>
-                    </p>
-                  </div>
-                </div>
+               
               </div>
             )}
           </div>
@@ -427,32 +414,14 @@ function CaseStudyCard({
           height={225}
           className="aspect-video object-cover w-full transition-transform group-hover:scale-105"
         />
-        <div className="absolute top-2 right-2 bg-primary text-primary-foreground px-2 py-1 rounded-md text-xs font-medium">
-          {caseStudy.category === "marketing"
-            ? "Marketing"
-            : caseStudy.category === "training"
-              ? "Training"
-              : caseStudy.category === "business"
-                ? "Business Solutions"
-                : caseStudy.category === "post-design"
-                  ? "Post Design"
-                  : caseStudy.category === "logos"
-                    ? "Logos"
-                    : caseStudy.category === "package-design"
-                      ? "Package Design"
-                      : caseStudy.category === "banner-design"
-                        ? "Banner Design" 
-                        : caseStudy.category}
-        </div>
+        
       </div>
       <CardContent className="p-6">
         <h3 className="text-xl font-bold mb-2">{caseStudy.title}</h3>
         <p className="text-muted-foreground mb-4">{caseStudy.description}</p>
         <div className="flex justify-between items-center">
           <span className="text-sm text-muted-foreground">{caseStudy.date}</span>
-          <Button variant="link" asChild className="p-0">
-            <Link href={`/case-studies/${caseStudy.slug}`}>View Details</Link>
-          </Button>
+          
         </div>
       </CardContent>
     </Card>
